@@ -1,0 +1,7 @@
+name: BungeeReconnector
+version: ${pom.full_version}
+author: Schmoller
+
+main: au.com.addstar.reconnector.ReconnectorPlugin
+
+depends: [Yamler]
