@@ -6,7 +6,6 @@ import java.util.UUID;
 import au.com.addstar.reconnector.MainConfig.ServerGroup;
 
 import net.cubespace.Yamler.Config.InvalidConfigurationException;
-import net.md_5.bungee.api.config.ListenerInfo;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -61,31 +60,22 @@ public class ReconnectorPlugin extends Plugin implements Listener
 		return data;
 	}
 	
-	@SuppressWarnings( "deprecation" )
 	public ServerInfo getReconnectServer(String lastServer)
 	{
-		for(ServerGroup group : mConfig.rules)
+		for(ServerGroup group : mConfig.rules.values())
 		{
 			if(!group.servers.contains(lastServer))
 				continue;
 			
 			if(group.destination.isEmpty())
 				return getProxy().getServerInfo(lastServer);
+			else if(group.destination.equals("*"))
+				return getProxy().getServerInfo(mConfig.defaultServer);
 			else
 				return getProxy().getServerInfo(group.destination);
 		}
 		
-		if(mConfig.defaultServer.isEmpty())
-		{
-			for(ListenerInfo info : getProxy().getConfig().getListeners())
-			{
-				if(!info.getDefaultServer().isEmpty())
-					return getProxy().getServerInfo(info.getDefaultServer());
-			}
-			return null;
-		}
-		else
-			return getProxy().getServerInfo(mConfig.defaultServer);
+		return getProxy().getServerInfo(mConfig.defaultServer);
 	}
 	
 	@EventHandler
