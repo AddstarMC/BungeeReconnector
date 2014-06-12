@@ -67,7 +67,7 @@ public class ReconnectorPlugin extends Plugin implements Listener
 			if(!group.servers.contains(lastServer))
 				continue;
 			
-			if(group.destination.isEmpty())
+			if(group.destination == null || group.destination.isEmpty())
 				return getProxy().getServerInfo(lastServer);
 			else if(group.destination.equals("*"))
 				return getProxy().getServerInfo(mConfig.defaultServer);
