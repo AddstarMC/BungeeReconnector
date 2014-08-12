@@ -40,6 +40,7 @@ public class ReconnectorPlugin extends Plugin implements Listener
 			mPlayerDataFolder.mkdirs();
 		
 		getProxy().setReconnectHandler(new Reconnector(this));
+		getProxy().getPluginManager().registerListener(this, new ReconnectionHandler(this));
 		getProxy().getPluginManager().registerListener(this, this);
 	}
 	
