@@ -1,8 +1,8 @@
 package au.com.addstar.reconnector;
 
+import java.lang.reflect.Method;
 import java.util.WeakHashMap;
 
-import net.md_5.bungee.UserConnection;
 import net.md_5.bungee.api.Callback;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -39,6 +39,16 @@ public class ReconnectionHandler implements Listener
 		if(initialServer == null)
 			initialServer = ProxyServer.getInstance().getServerInfo(event.getPlayer().getPendingConnection().getListener().getDefaultServer());
 		
+		try
+		{
+			Method method = event.getPlayer().getClass().getMethod("setDimensionChange", Boolean.TYPE);
+			method.invoke(event.getPlayer(), false);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		connectTo(event.getPlayer(), initialServer);
 	}
 	
@@ -54,7 +64,6 @@ public class ReconnectionHandler implements Listener
 	
 	private void connectTo(final ProxiedPlayer player, final ServerInfo server)
 	{
-		((UserConnection)player).setDimensionChange(false);
 		player.connect(server, new Callback<Boolean>()
 		{
 			public void done( Boolean success, Throwable error )
@@ -62,10 +71,7 @@ public class ReconnectionHandler implements Listener
 				if (success == null || !success)
 				{
 					if (server == getDefaultServer(player))
-					{
-						((UserConnection)player).setDimensionChange(true);
 						connectTo(player, getFallbackServer(player));
-					}
 					else if(server != getFallbackServer(player))
 						connectTo(player, getDefaultServer(player));
 					else

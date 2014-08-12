@@ -38,18 +38,19 @@
       <id>Yamler</id>
       <url>http://nexus.cube-space.net/content/groups/public/</url>
     </repository>
+    <!-- BungeeCord repo -->
     <repository>
       <id>md_5</id>
-      <url>http://repo.md-5.net/content/groups/public/</url>
+      <url>https://oss.sonatype.org/content/groups/public/</url>
     </repository>
   </repositories>
 
   <dependencies>
     <dependency>
-        <groupId>net.md-5</groupId>
-        <artifactId>bungeecord-bootstrap</artifactId>
-        <version>1.7-SNAPSHOT</version>
-    	<type>jar</type>
+      <groupId>net.md-5</groupId>
+      <artifactId>bungeecord-api</artifactId>
+      <version>1.7-SNAPSHOT</version>
+      <type>jar</type>
   	</dependency>
   	
   	<dependency>
