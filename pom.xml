@@ -3,12 +3,31 @@
   
   <groupId>au.com.addstar</groupId>
   <artifactId>BungeeReconnector</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <name>BungeeReconnector</name>
   <properties>
-    <full_version>${project.version}-${env.BUILD_NUMBER}</full_version>
+    <build.number />
+    <plugin.version>${project.version}-${build.number}</plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
+  <scm>
+    <connection>scm:git:git@github.com:AddstarMC/BungeeReconnector.git</connection>
+    <developerConnection>scm:git:git@github.com:AddstarMC/BungeeReconnector.git</developerConnection>
+    <url>https://github.com/AddstarMC/BungeeReconnector</url>
+    <tag>HEAD</tag>
+  </scm>
+  <distributionManagement>
+    <repository>
+      <id>maven.addstar.com.au</id>
+      <name>maven.addstar.com.au-releases</name>
+      <url>http://maven.addstar.com.au/artifactory/ext-release-local</url>
+    </repository>
+    <snapshotRepository>
+      <id>maven.addstar.com.au</id>
+      <name>maven.addstar.com.au-snapshots</name>
+      <url>http://maven.addstar.com.au/artifactory/ext-snapshot-local</url>
+    </snapshotRepository>
+  </distributionManagement>
   <repositories>
     <!-- Addstar repo -->
     <repository>
@@ -46,30 +65,32 @@
   </repositories>
 
   <dependencies>
-    <dependency>
-      <groupId>net.md-5</groupId>
-      <artifactId>bungeecord-api</artifactId>
-      <version>1.7-SNAPSHOT</version>
-      <type>jar</type>
-  	</dependency>
-  	
-  	<dependency>
-	  <groupId>net.cubespace</groupId>
-	  <artifactId>Yamler-Core</artifactId>
-	  <version>2.1.0-SNAPSHOT</version>
-	</dependency>
+      <dependency>
+          <groupId>au.com.addstar</groupId>
+          <artifactId>bungeecord-api</artifactId>
+          <version>1.12-SNAPSHOT</version>
+          <scope>provided</scope>
+          <optional>true</optional>
+      </dependency>
+      <dependency>
+          <groupId>net.cubespace</groupId>
+          <artifactId>Yamler-Core</artifactId>
+          <version>2.2.3-SNAPSHOT</version>
+          <scope>provided</scope>
+          <optional>true</optional>
+      </dependency>
   </dependencies>
   <build>
     <resources>
       <resource>
         <targetPath>.</targetPath>
         <filtering>true</filtering>
-        <directory>${basedir}/.</directory>
+        <directory>${basedir}/src/main/resources</directory>
         <includes>
-          <include>plugin.yml</include>
+          <include>*.yml</include>
         </includes>
       </resource>
     </resources>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
   </build>
 </project>

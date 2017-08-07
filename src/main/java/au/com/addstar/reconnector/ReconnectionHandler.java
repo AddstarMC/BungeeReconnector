@@ -37,7 +37,7 @@ public class ReconnectionHandler implements Listener
 		PlayerData data = mPlugin.loadPlayerData(event.getPlayer().getUniqueId());
 		ServerInfo initialServer = mPlugin.getReconnectServer(data.lastServer);
 		if(initialServer == null)
-			initialServer = ProxyServer.getInstance().getServerInfo(event.getPlayer().getPendingConnection().getListener().getDefaultServer());
+			initialServer = ProxyServer.getInstance().getServerInfo(event.getPlayer().getPendingConnection().getListener().getServerPriority().get(0));
 		
 		try
 		{
@@ -54,12 +54,14 @@ public class ReconnectionHandler implements Listener
 	
 	private ServerInfo getDefaultServer(ProxiedPlayer player)
 	{
-		return ProxyServer.getInstance().getServerInfo(player.getPendingConnection().getListener().getDefaultServer());
+		return ProxyServer.getInstance().getServerInfo(player.getPendingConnection().getListener().getServerPriority().get(0));
 	}
 	
 	private ServerInfo getFallbackServer(ProxiedPlayer player)
 	{
-		return ProxyServer.getInstance().getServerInfo(player.getPendingConnection().getListener().getFallbackServer());
+		String info =
+				player.getPendingConnection().getListener().getServerPriority().size() > 1 ? player.getPendingConnection().getListener().getServerPriority().get(1) : player.getPendingConnection().getListener().getServerPriority().get(0);
+		return ProxyServer.getInstance().getServerInfo(info);
 	}
 	
 	private void connectTo(final ProxiedPlayer player, final ServerInfo server)
