@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 import net.cubespace.Yamler.Config.Comment;
 import net.cubespace.Yamler.Config.Comments;
-import net.cubespace.Yamler.Config.Config;
+import net.cubespace.Yamler.Config.YamlConfig;
 
-public class MainConfig extends Config
+public class MainConfig extends YamlConfig
 {
 	public MainConfig()
 	{
@@ -23,8 +23,9 @@ public class MainConfig extends Config
 	@Comment("The server to respawn players on when they login if no rules match them. Leave blank for bungee default")
 	public String defaultServer = "";
 	
-	public static class ServerGroup extends Config
+	public static class ServerGroup extends YamlConfig
 	{
+		@Comment("The list of servers.")
 		public ArrayList<String> servers = new ArrayList<String>();
 		@Comment("The destination server to respawn players on the listed servers on. Leave blank to allow logging back in on the same server.")
 		public String destination = "";
