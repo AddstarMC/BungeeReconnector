@@ -1,0 +1,19 @@
+# All connection rules go here.
+# Format:
+# <rulename>:
+#   servers: [<list>]
+#   destination: <dest>
+#
+# desination can be blank meaning stay on same server, or * for use default server
+rules:
+  main: !!au.com.addstar.reconnector.MainConfig$ServerGroup
+    destination: hub
+    servers:
+    - survival
+    - creative
+    - prison
+    - skyblock2
+    - skygrid
+    - staff
+# The server to respawn players on when they login if no rules match them. Leave blank for bungee default
+defaultServer: 'hub'

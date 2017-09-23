@@ -20,7 +20,8 @@ public class Reconnector implements ReconnectHandler
 
 	public ServerInfo getServer( ProxiedPlayer player )
 	{
-		return null;
+		PlayerData data = mPlugin.loadPlayerData(player.getUniqueId());
+		return mPlugin.getReconnectServer(data.lastServer);
 	}
 
 	public void save()
