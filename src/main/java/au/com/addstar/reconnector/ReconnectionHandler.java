@@ -31,16 +31,14 @@ public class ReconnectionHandler implements Listener
 		if(mHandled.put(event.getPlayer(), true) != null)
 			return;
 		
-
+		event.setCancelled(true);
 		
 		// Try connection to reconnect server
 		PlayerData data = mPlugin.loadPlayerData(event.getPlayer().getUniqueId());
 		ServerInfo initialServer = mPlugin.getReconnectServer(data.lastServer);
 		if(initialServer == null)
 			initialServer = ProxyServer.getInstance().getServerInfo(event.getPlayer().getPendingConnection().getListener().getServerPriority().get(0));
-		event.setTarget(initialServer);
-		event.getPlayer().setReconnectServer(initialServer);
-		//event.setCancelled(true);
+		
 		try
 		{
 			Method method = event.getPlayer().getClass().getMethod("setDimensionChange", Boolean.TYPE);
